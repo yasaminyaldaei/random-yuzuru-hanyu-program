@@ -1,4 +1,5 @@
 import { YTVideoLinkGenerator } from "../../utils/youtubeVideoLinkGenerator";
+import { VideoShare } from "./VideoShare";
 import { VideoThumbnail } from "./VideoThumbnail";
 
 export function Video({ id, thumbnails, title }) {
@@ -7,6 +8,7 @@ export function Video({ id, thumbnails, title }) {
       <div>
         <VideoThumbnail {...thumbnails?.default} />
         <h4>{title}</h4>
+        <VideoShare />
       </div>
     </a>
   );
