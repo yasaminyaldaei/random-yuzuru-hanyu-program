@@ -1,0 +1,1 @@
+export const RANDOM_INT_NUM_ROUTE = 'https://www.random.org/integers/'
