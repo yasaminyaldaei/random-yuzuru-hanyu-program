@@ -14,7 +14,12 @@ export function VideosList({ program }) {
     <div>
       {videos && videos.length !== 0
         ? videos.map((video) => (
-            <Video key={video.etag} id={video.id.videoId} {...video.snippet} />
+            <Video
+              key={video.etag}
+              id={video.id.videoId}
+              {...video.snippet}
+              programTitle={program}
+            />
           ))
         : null}
     </div>

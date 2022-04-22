@@ -32,7 +32,7 @@ export function getYTVideos({ program, maxResults = 10 }) {
         key: process.env.REACT_APP_GAPI_KEY,
         part: "snippet",
         maxResults,
-        q: "Yuzuru Hanyu" + program,
+        q: "Yuzuru Hanyu " + program,
       },
     })
     .then((res) => res.data);
