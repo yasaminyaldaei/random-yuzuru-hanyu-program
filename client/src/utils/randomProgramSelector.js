@@ -9,5 +9,5 @@ export async function getRandomProgram() {
   } catch {
     randomIndex = Math.floor(Math.random() * max);
   }
-  return PROGRAMS?.[randomIndex]?.program_name || 0;
+  return PROGRAMS?.[randomIndex]?.program_name;
 }
