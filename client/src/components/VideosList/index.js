@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
 import { getYTVideos } from "../../api";
 import { Video } from "../Video";
+import { VideoListError } from "./VideoListError";
 
 export function VideosList({ program }) {
   const [videos, setVideos] = useState([]);
+  const [error, setError] = useState(false);
   useEffect(() => {
-    if (program) getYTVideos({ program }).then((data) => setVideos(data.items));
+    if (program)
+      getYTVideos({ program })
+        .then((data) => setVideos(data.items))
+        .catch(() => {
+          setError(true);
+        });
   }, [program]);
 
   if (!program) return null;
@@ -22,6 +29,7 @@ export function VideosList({ program }) {
             />
           ))
         : null}
+      {error ? <VideoListError programTitle={program} /> : null}
     </div>
   );
 }
