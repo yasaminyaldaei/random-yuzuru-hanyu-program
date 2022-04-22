@@ -1,3 +1,3 @@
-export function VideoThumbnail({ url, width, height }) {
-    return <img src={url} width={width} height={height} />
+export function VideoThumbnail({ url, width, height, alt }) {
+  return <img src={url} width={width} height={height} alt={alt} />;
 }
