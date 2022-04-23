@@ -1,0 +1,13 @@
+.random-program-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.random-program-title {
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+  color: #2c3e50;
+}
