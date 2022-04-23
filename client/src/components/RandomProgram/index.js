@@ -6,7 +6,12 @@ export function RandomProgram({ program }) {
   return (
     <div className="random-program-text-container">
       <Loading show={!program} />
-      {program && <p className="random-program-text">✨ {program} ✨</p>}
+      {program && (
+        <div className="random-program-text-inner-container">
+          <span>✨ </span>
+          <p className="random-program-text"> {program}</p> <span> ✨</span>
+        </div>
+      )}
     </div>
   );
 }
