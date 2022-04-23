@@ -1,0 +1,15 @@
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: rgb(129, 41, 92);
+  background: linear-gradient(
+    150deg,
+    rgba(129, 41, 92, 1) 0%,
+    rgba(21, 148, 154, 1) 31%,
+    rgba(207, 165, 127, 1) 58%,
+    rgba(243, 225, 241, 1) 82%
+  );
+}
