@@ -2,12 +2,16 @@ import { YTVideoLinkGenerator } from "../../utils/youtubeVideoLinkGenerator";
 import { VideoShare } from "./VideoShare";
 import { VideoThumbnail } from "./VideoThumbnail";
 
+import "./Video.css";
+
 export function Video({ id, thumbnails, title, programTitle }) {
   return (
-    <div>
+    <div className="video">
       <a href={YTVideoLinkGenerator({ id })} target="_blank" rel="noreferrer">
-        <VideoThumbnail {...thumbnails?.default} alt={title} />
-        <h4>{title}</h4>
+        <div className="video-details">
+          <VideoThumbnail {...thumbnails?.default} alt={title} />
+          <span className="video-title">{title}</span>
+        </div>
       </a>
       <VideoShare id={id} title={programTitle} />
     </div>

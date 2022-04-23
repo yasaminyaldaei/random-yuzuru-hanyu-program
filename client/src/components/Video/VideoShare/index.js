@@ -7,6 +7,7 @@ export function VideoShare({ id, title }) {
       href={TwitterTweetGenerator({ id, title })}
       target="_blank"
       rel="noreferrer"
+      className="video-share"
     >
       <Share width={18} />
     </a>
