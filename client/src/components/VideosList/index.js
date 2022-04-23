@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
-import { getYTVideos } from "../../api";
+
 import { Video } from "../Video";
 import { VideoListError } from "./VideoListError";
+import { VideosListLoading } from "./VideosListLoading";
+
+import { getYTVideos } from "../../api";
+
+import "./VideosList.css";
 
 export function VideosList({ program }) {
   const [videos, setVideos] = useState([]);
@@ -18,7 +23,8 @@ export function VideosList({ program }) {
   if (!program) return null;
 
   return (
-    <div>
+    <div className="videos-list-container">
+      <VideosListLoading show={(!videos || videos.length === 0) && !error} />
       {videos && videos.length !== 0
         ? videos.map((video) => (
             <Video
