@@ -11,13 +11,13 @@
 
 .video-details {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 10px;
 }
 
 .video-title {
-  max-width: 400px;
+  max-width: 60%;
 }
 
 .video-share {
@@ -27,4 +27,10 @@
 .video-thumbnail {
   border-radius: 8px;
   overflow: hidden;
+}
+
+@media (max-width: 375px) {
+  .video-title {
+    max-width: 50%;
+  }
 }
