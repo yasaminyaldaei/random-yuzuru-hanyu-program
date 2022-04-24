@@ -23,3 +23,8 @@
 .video-share {
   fill: var(--primary-gray);
 }
+
+.video-thumbnail {
+  border-radius: 8px;
+  overflow: hidden;
+}
