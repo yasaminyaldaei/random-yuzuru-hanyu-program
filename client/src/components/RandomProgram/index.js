@@ -8,8 +8,8 @@ export function RandomProgram({ program }) {
       <Loading show={!program} />
       {program && (
         <div className="random-program-text-inner-container">
-          <span>✨ </span>
-          <p className="random-program-text"> {program}</p> <span> ✨</span>
+          <span>✨</span>
+          <p className="random-program-text"> {program}</p> <span>✨</span>
         </div>
       )}
     </div>

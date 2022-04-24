@@ -10,7 +10,10 @@ export function Video({ id, thumbnails, title, programTitle }) {
       <a href={YTVideoLinkGenerator({ id })} target="_blank" rel="noreferrer">
         <div className="video-details">
           <VideoThumbnail {...thumbnails?.default} alt={title} />
-          <span className="video-title">{title}</span>
+          <span
+            className="video-title"
+            dangerouslySetInnerHTML={{ __html: title }}
+          ></span>
         </div>
       </a>
       <VideoShare id={id} title={programTitle} />
