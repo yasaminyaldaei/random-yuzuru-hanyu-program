@@ -10,6 +10,7 @@ const PROGRAMS = require("../data/programs.json");
 // Constants
 const PORT = 8080;
 const HOST = "0.0.0.0";
+const BASE_URL = "https://randomyuzu.fun/";
 const RANDOMIZATION = {
   new: "new",
   date: "date",
@@ -125,6 +126,29 @@ app.get("/random-program-yt-videos", (req, res) => {
     res.sendStatus(500);
   }
 });
+
+app.get("/deep-link", (req, res) => {
+  const ua = req.headers["user-agent"];
+  const videoId = req.query.videoId;
+  const video = videos.find((item) => item.id.videoId === videoId);
+  if (/^(facebookexternalhit)|(Twitterbot)|(Pinterest)/gi.test(ua)) {
+    const metaTags = {
+      url: BASE_URL + `?videoId=${videoId}`,
+      domain: BASE_URL,
+      imageUrl:
+        video.snippet.thumbnails.high.url ||
+        video.snippet.thumbnails.default.url,
+      title: video.snippet.title,
+      description: video.snippet.description,
+      twitterCardType: "summary",
+    };
+    res.render("bot", metaTags);
+  } else {
+    res.redirect(BASE_URL + `?videoId=${videoId}`);
+  }
+});
+
+app.set("view engine", "pug");
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
