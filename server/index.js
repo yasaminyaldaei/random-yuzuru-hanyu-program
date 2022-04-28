@@ -63,6 +63,7 @@ function getYTVideos({ program, maxResults = 10 }) {
       params: {
         key: process.env.GAPI_KEY,
         part: "snippet",
+        type: "video",
         maxResults,
         q: "Yuzuru Hanyu " + program,
       },
@@ -86,8 +87,16 @@ async function getRandomProgram() {
 }
 
 let program = "";
-(async function setRandomProgram() {
+let videos = [];
+let error = null;
+(async function setData() {
   program = await getRandomProgram();
+  try {
+    const result = await getYTVideos({ program });
+    videos = result.items;
+  } catch {
+    error = true;
+  }
 })();
 
 // App
@@ -108,16 +117,10 @@ app.get("/random-program", async (req, res) => {
 });
 
 app.get("/random-program-yt-videos", (req, res) => {
-  if (program) {
-    getYTVideos({ program })
-      .then((data) => {
-        res.send({
-          items: data.items,
-        });
-      })
-      .catch((error) => {
-        res.sendStatus(500);
-      });
+  if (videos && videos.length !== 0) {
+    res.send({
+      videos,
+    });
   } else {
     res.sendStatus(500);
   }
