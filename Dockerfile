@@ -14,7 +14,7 @@ RUN npm install
 
 # Bundle app source
 COPY . .
-COPY ../data/programs.json .
+COPY ./data/programs.json .
 
 EXPOSE 8080
 
