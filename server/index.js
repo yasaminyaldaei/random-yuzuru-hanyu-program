@@ -2,8 +2,14 @@
 
 const express = require("express");
 const axios = require("axios");
+var cors = require("cors");
 
 require("dotenv").config();
+
+var corsOptions = {
+  origin: "https://randomyuzu.fun",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
 const PROGRAMS = require("./programs.json");
 
@@ -107,7 +113,7 @@ app.get("/", (req, res) => {
   res.send("This a Random Yuzuru Hanyu Program Service!");
 });
 
-app.get("/random-program", async (req, res) => {
+app.get("/random-program", cors(corsOptions), async (req, res) => {
   if (program) {
     res.send({
       program,
@@ -117,7 +123,7 @@ app.get("/random-program", async (req, res) => {
   }
 });
 
-app.get("/random-program-yt-videos", (req, res) => {
+app.get("/random-program-yt-videos", cors(corsOptions), (req, res) => {
   if (videos && videos.length !== 0) {
     res.send({
       videos,
@@ -127,7 +133,7 @@ app.get("/random-program-yt-videos", (req, res) => {
   }
 });
 
-app.get("/deep-link", (req, res) => {
+app.get("/deep-link", cors(corsOptions), (req, res) => {
   const ua = req.headers["user-agent"];
   const videoId = req.query.videoId;
   const video = videos.find((item) => item.id.videoId === videoId);
