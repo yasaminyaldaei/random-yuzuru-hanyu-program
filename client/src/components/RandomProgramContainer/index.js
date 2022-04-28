@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { RandomProgram } from "../RandomProgram";
 import { VideosList } from "../VideosList";
 
-import { getRandomProgram } from "../../utils/randomProgramSelector";
+import { getRandomProgram } from "../../api";
 
 import "./RandomProgramContainer.css";
 
@@ -11,7 +11,7 @@ export default function RandomProgramContainer() {
   const [randomProgram, setRandomProgram] = useState("");
 
   const fetchRandomProgram = async () => {
-    const program = await getRandomProgram();
+    const { program } = await getRandomProgram();
     setRandomProgram(program);
   };
 

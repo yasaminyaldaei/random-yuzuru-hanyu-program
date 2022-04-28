@@ -12,12 +12,11 @@ export function VideosList({ program }) {
   const [videos, setVideos] = useState([]);
   const [error, setError] = useState(false);
   useEffect(() => {
-    if (program)
-      getYTVideos({ program })
-        .then((data) => setVideos(data.items))
-        .catch(() => {
-          setError(true);
-        });
+    getYTVideos()
+      .then((data) => setVideos(data.videos))
+      .catch(() => {
+        setError(true);
+      });
   }, [program]);
 
   if (!program) return null;

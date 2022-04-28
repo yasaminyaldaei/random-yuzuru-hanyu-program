@@ -1,3 +1,5 @@
-export const RANDOM_INT_NUM_ROUTE = 'https://www.random.org/integers/'
+export const BASE_URL = "https://api.randomyuzu.fun/";
 
-export const YOUTUBE_DATA_ROUTE = 'https://www.googleapis.com/youtube/v3/search'
+export const RANDOM_PROGRAM = "random-program/";
+export const RANDOM_PROGRAM_YOUTUBE_VIDEOS = "random-program-yt-videos/";
+export const DEEPLINK = "deep-link/";
