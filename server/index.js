@@ -5,7 +5,7 @@ const axios = require("axios");
 
 require("dotenv").config();
 
-const PROGRAMS = require("../data/programs.json");
+const PROGRAMS = require("./programs.json");
 
 // Constants
 const PORT = 8080;
