@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { RandomProgram } from "../RandomProgram";
 import { VideosList } from "../VideosList";
@@ -10,6 +10,8 @@ import { getSelectedVideoId } from "../../utils/getSelectedVideoId";
 import "./RandomProgramContainer.css";
 
 export default function RandomProgramContainer() {
+  const randomProgramContainerRef = useRef(null);
+
   const [randomProgram, setRandomProgram] = useState("");
   const [videos, setVideos] = useState([]);
   const [error, setError] = useState(false);
@@ -30,8 +32,19 @@ export default function RandomProgramContainer() {
     fetchRandomProgram();
   }, [fetchRandomProgram]);
 
+  useEffect(() => {
+    randomProgramContainerRef.current.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, [selectedVideo]);
+
   return (
-    <section className="random-program-container">
+    <section
+      ref={randomProgramContainerRef}
+      className="random-program-container"
+    >
       <h2 className="random-program-title">
         Daily Random Yuzuru Hanyu Program!
       </h2>
