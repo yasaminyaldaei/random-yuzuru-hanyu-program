@@ -1,0 +1,21 @@
+.selected-video-container {
+  position: relative;
+}
+
+.selected-video-container > .lds-ellipsis {
+  position: absolute;
+  top: 40%;
+  right: 40%;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.selected-video-container > .lds-ellipsis div {
+  background: white;
+}
+
+.selected-video {
+  margin: 20px 0;
+  border-radius: 4px;
+  overflow: hidden;
+}

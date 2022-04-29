@@ -16,6 +16,10 @@
   gap: 10px;
 }
 
+.video-details:hover {
+  cursor: pointer;
+}
+
 .video-title {
   max-width: 60%;
 }

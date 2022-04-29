@@ -4,8 +4,10 @@ import { VideosListLoading } from "./VideosListLoading";
 
 import "./VideosList.css";
 
-export function VideosList({ program, videos, error }) {
+export function VideosList({ program, videos, error, onClick }) {
   if (!videos || videos.length === 0) return null;
+
+  const onClickVideo = (id) => () => onClick(id);
 
   return (
     <div className="videos-list-container">
@@ -17,6 +19,7 @@ export function VideosList({ program, videos, error }) {
               id={video.id.videoId}
               {...video.snippet}
               programTitle={program}
+              onClick={onClickVideo(video.id.videoId)}
             />
           ))
         : null}
