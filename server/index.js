@@ -2,7 +2,9 @@
 
 const express = require("express");
 const axios = require("axios");
-var cors = require("cors");
+const cors = require("cors");
+const cron = require("node-cron");
+const fs = require("fs");
 
 require("dotenv").config();
 
@@ -93,18 +95,18 @@ async function getRandomProgram() {
   return PROGRAMS[randomIndex].program_name;
 }
 
-let program = "";
-let videos = [];
-let error = null;
-(async function setData() {
-  program = await getRandomProgram();
+async function setData() {
+  const program = await getRandomProgram();
   try {
     const result = await getYTVideos({ program });
-    videos = result.items;
+    const videos = result.items;
+    fs.writeFileSync("today.json", JSON.stringify({ program, videos }));
   } catch {
-    error = true;
+    fs.writeFileSync("today.json", JSON.stringify({ program, videos: [] }));
   }
-})();
+}
+
+cron.schedule("0 0 * * *", setData);
 
 // App
 const app = express();
@@ -114,41 +116,43 @@ app.get("/", (req, res) => {
 });
 
 app.get("/random-program", cors(corsOptions), async (req, res) => {
-  if (program) {
-    res.send({
-      program,
-    });
-  } else {
-    res.sendStatus(500);
-  }
-});
-
-app.get("/random-program-yt-videos", cors(corsOptions), (req, res) => {
-  if (videos && videos.length !== 0) {
-    res.send({
-      videos,
-    });
-  } else {
-    res.sendStatus(500);
+  const rawData = fs.readFileSync("today.json");
+  try {
+    const program = JSON.parse(rawData);
+    if (program) {
+      res.send(program);
+    } else {
+      res.sendStatus(500);
+    }
+  } catch (error) {
+    console.error(error);
   }
 });
 
 app.get("/deep-link", cors(corsOptions), (req, res) => {
   const ua = req.headers["user-agent"];
   const videoId = req.query.videoId;
-  const video = videos.find((item) => item.id.videoId === videoId);
+  const rawData = fs.readFileSync("today.json");
+
   if (/^(facebookexternalhit)|(Twitterbot)|(Pinterest)/gi.test(ua)) {
-    const metaTags = {
-      url: BASE_URL + `?videoId=${videoId}`,
-      domain: BASE_URL,
-      imageUrl:
-        video.snippet.thumbnails.high.url ||
-        video.snippet.thumbnails.default.url,
-      title: video.snippet.title,
-      description: video.snippet.description,
-      twitterCardType: "summary",
-    };
-    res.render("bot", metaTags);
+    try {
+      const { videos } = JSON.parse(rawData);
+      const video = videos.find((item) => item.id.videoId === videoId);
+      const metaTags = {
+        url: BASE_URL + `?videoId=${videoId}`,
+        domain: BASE_URL,
+        imageUrl:
+          video.snippet.thumbnails.high.url ||
+          video.snippet.thumbnails.default.url,
+        title: video.snippet.title,
+        description: video.snippet.description,
+        twitterCardType: "summary",
+      };
+      res.render("bot", metaTags);
+    } catch (error) {
+      console.error(error);
+      res.sendStatus(500);
+    }
   } else {
     res.redirect(BASE_URL + `?videoId=${videoId}`);
   }
