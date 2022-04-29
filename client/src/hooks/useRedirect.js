@@ -9,7 +9,7 @@ export function useRedirect() {
 
     if (pathname.includes("deep-link")) {
       getDeepLink({ videoId }).then((res) => {
-        window.location.href = res.request.responseURL;
+        window.location.replace(res.request.responseURL);
       });
     }
   }, []);
