@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { RandomProgram } from "../RandomProgram";
 import { VideosList } from "../VideosList";
@@ -15,7 +15,7 @@ export default function RandomProgramContainer() {
   const [error, setError] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(getSelectedVideoId());
 
-  const fetchRandomProgram = async () => {
+  const fetchRandomProgram = useCallback(async () => {
     try {
       const { program, videos } = await getRandomProgram();
       setRandomProgram(program);
@@ -24,11 +24,11 @@ export default function RandomProgramContainer() {
     } catch {
       setError(true);
     }
-  };
+  }, [selectedVideo]);
 
   useEffect(() => {
     fetchRandomProgram();
-  }, []);
+  }, [fetchRandomProgram]);
 
   return (
     <section className="random-program-container">
