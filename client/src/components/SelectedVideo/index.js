@@ -13,7 +13,10 @@ export function SelectedVideo({ videoId }) {
   }, [videoId]);
 
   useEffect(() => {
-    width.current = Math.max(300, Math.min(window.innerWidth - 120, 768 - 40));
+    width.current = Math.max(
+      300,
+      Math.min(window.innerWidth - 120 || 560, 768 - 40)
+    );
   }, [iframe]);
 
   return (
