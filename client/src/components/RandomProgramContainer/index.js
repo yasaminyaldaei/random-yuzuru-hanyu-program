@@ -9,10 +9,17 @@ import "./RandomProgramContainer.css";
 
 export default function RandomProgramContainer() {
   const [randomProgram, setRandomProgram] = useState("");
+  const [videos, setVideos] = useState([]);
+  const [error, setError] = useState(false);
 
   const fetchRandomProgram = async () => {
-    const { program } = await getRandomProgram();
-    setRandomProgram(program);
+    try {
+      const { program, videos } = await getRandomProgram();
+      setRandomProgram(program);
+      setVideos(videos);
+    } catch {
+      setError(true);
+    }
   };
 
   useEffect(() => {
@@ -25,7 +32,7 @@ export default function RandomProgramContainer() {
         Random Yuzuru Hanyu Program!
       </header>
       <RandomProgram program={randomProgram} />
-      <VideosList program={randomProgram} />
+      <VideosList program={randomProgram} videos={videos} error={error} />
     </section>
   );
 }
