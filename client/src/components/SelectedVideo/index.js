@@ -1,21 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Loading } from "../Loading";
 
 import "./SelectedVideo.css";
 
 export function SelectedVideo({ videoId }) {
+  const iframe = useRef(null);
+  const width = useRef(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
   }, [videoId]);
 
+  useEffect(() => {
+    width.current = Math.max(300, Math.min(window.innerWidth - 120, 768 - 40));
+  }, [iframe]);
+
   return (
     <div className="selected-video-container">
       <Loading show={loading} />
       <iframe
-        width="560"
-        height="315"
+        ref={iframe}
+        width={width.current}
+        height={width.current * 0.5625}
         src={`https://www.youtube.com/embed/${videoId}`}
         title="YouTube video player"
         frameborder="0"

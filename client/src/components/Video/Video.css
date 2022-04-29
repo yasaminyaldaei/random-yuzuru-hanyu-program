@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: flex-start;
   border-bottom: 1px solid var(--light-gray);
-  padding: 10px;
+  padding: 10px 0;
   gap: 10px;
 }
 

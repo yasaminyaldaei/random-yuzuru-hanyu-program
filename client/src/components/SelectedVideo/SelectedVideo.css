@@ -1,13 +1,12 @@
 .selected-video-container {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .selected-video-container > .lds-ellipsis {
   position: absolute;
-  top: 40%;
-  right: 40%;
-  padding: 10px;
-  cursor: pointer;
 }
 
 .selected-video-container > .lds-ellipsis div {
