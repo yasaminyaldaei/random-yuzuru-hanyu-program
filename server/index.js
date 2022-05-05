@@ -117,6 +117,7 @@ async function setData() {
   }
 }
 
+setData();
 cron.schedule("0 0 * * *", setData);
 
 // App
