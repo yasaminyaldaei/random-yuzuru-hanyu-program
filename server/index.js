@@ -31,12 +31,20 @@ const YOUTUBE_DATA_ROUTE = "https://www.googleapis.com/youtube/v3/search";
 // Utils
 
 function localeDateStringGenerator({ date } = { date: new Date() }) {
-  return date.toISOString().split("T")[0];
+  const localeDateString = date.toISOString().split("T")[0];
+  console.log("localeDateStringGenerator", localeDateString);
+  return localeDateString;
 }
 
 function randomizationGenerator({ rnd = RANDOMIZATION.new }) {
-  if (rnd === RANDOMIZATION.date)
-    return RANDOMIZATION.date.concat(".").concat(localeDateStringGenerator());
+  if (rnd === RANDOMIZATION.date) {
+    const randomization = RANDOMIZATION.date
+      .concat(".")
+      .concat(localeDateStringGenerator());
+    console.log("randomization", randomization);
+
+    return randomization;
+  }
 
   return RANDOMIZATION.new;
 }
@@ -92,11 +100,14 @@ async function getRandomProgram() {
   } catch {
     randomIndex = Math.floor(Math.random() * max);
   }
-  return PROGRAMS[randomIndex].program_name;
+  const randomProgram = PROGRAMS[randomIndex].program_name;
+  console.log("randomIndex", randomIndex);
+  return randomProgram;
 }
 
 async function setData() {
   const program = await getRandomProgram();
+  console.log("program", program);
   try {
     const result = await getYTVideos({ program });
     const videos = result.items;
