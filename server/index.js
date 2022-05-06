@@ -71,7 +71,10 @@ function getRandomNum({
         rnd,
       },
     })
-    .then((res) => res.data);
+    .then((res) => {
+      console.log("getRandomNum", res);
+      return res.data;
+    });
 }
 
 function getYTVideos({ program, maxResults = 10 }) {
@@ -97,11 +100,12 @@ async function getRandomProgram() {
       max,
       rnd: randomizationGenerator({ rnd: RANDOMIZATION.date }),
     });
+    console.log("api randomIndex", randomIndex);
   } catch {
     randomIndex = Math.floor(Math.random() * max);
+    console.log("fallback randomIndex", randomIndex);
   }
   const randomProgram = PROGRAMS[randomIndex].program_name;
-  console.log("randomIndex", randomIndex);
   return randomProgram;
 }
 
