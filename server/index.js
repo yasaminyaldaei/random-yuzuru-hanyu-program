@@ -122,7 +122,7 @@ async function setData() {
 }
 
 setData();
-cron.schedule("0 0 * * *", setData);
+cron.schedule("0 5 * * *", setData);
 
 // App
 const app = express();
