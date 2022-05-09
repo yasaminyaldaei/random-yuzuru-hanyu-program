@@ -83,7 +83,6 @@ function getYTVideos({ program, maxResults = 10 }) {
       params: {
         key: process.env.GAPI_KEY,
         part: "snippet",
-        type: "video",
         maxResults,
         q: "Yuzuru Hanyu " + program,
       },
